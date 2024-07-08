@@ -1,11 +1,13 @@
 'use client'
 import CountdownTimer from "./Timer/CoundownTimer";
-import ProgressTimer from "./ProgressTimer/ProgressTimer";
+import ProgressBar from "@/shared/ui/CountdownTimer/ui/ProgressBar/ProgressBar";
 import {useCountdown} from "@/shared/ui/CountdownTimer/hooks/useCountdown";
 import {useEffect} from "react";
-import {NumericRange} from "@/shared/types/types";
+import {NumericRange, Time} from "@/shared/types/types";
 
 interface CountdownTimerProps {
+    endDate: Time,
+    startDate: Time,
     isActive: boolean;
     isStopped: () => void;
     year: number;
@@ -15,20 +17,20 @@ interface CountdownTimerProps {
     minutes?: NumericRange<0, 59>;
 }
 
+
 const CountdownProgressTimer = (props: CountdownTimerProps) => {
     const {
+        endDate,
+        startDate,
         isActive,
         isStopped,
-        year,
-        month,
-        day,
-        hour = 0,
-        minutes = 0
     } = props;
 
+
     const handle = (value: number) => (value < 10 ? "0" + value : value);
-    const date = `${handle(year)}-${handle(month)}-${handle(day)}T${handle(hour)}:${handle(minutes)}:00`
-    const {timer, timerStopped} = useCountdown(date)
+    const dateString = `${handle(endDate.year)}-${handle(endDate.month)}-${handle(endDate.day)}T${handle(endDate.hour)}:${handle(endDate.minutes)}:00`
+    const {timer, timerStopped} = useCountdown(dateString)
+
 
     useEffect(() => {
         if (isActive || timerStopped) {
@@ -38,14 +40,18 @@ const CountdownProgressTimer = (props: CountdownTimerProps) => {
     return (
         <>
             <CountdownTimer
+                startDate={startDate}
+                endDate={endDate}
                 isActive={isActive}
                 stopped={timerStopped}
                 days={timer.days}
                 hours={timer.hours}
                 minutes={timer.minutes}
                 seconds={timer.seconds} />
-            <ProgressTimer
-                initDays={day}
+            <ProgressBar
+                startDate={startDate}
+                endDate={endDate}
+                initDays={endDate.day}
                 days={timer.days}
                 hours={timer.hours}
                 minutes={timer.minutes}
