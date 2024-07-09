@@ -27,7 +27,7 @@ const CountdownProgressTimer = (props: CountdownTimerProps) => {
     } = props;
 
 
-    const handle = (value: number) => (value < 10 ? "0" + value : value);
+    const handle = (value: number ) => (value < 10 ? "0" + value : value);
     const dateString = `${handle(endDate.year)}-${handle(endDate.month)}-${handle(endDate.day)}T${handle(endDate.hour)}:${handle(endDate.minutes)}:00`
     const {timer, timerStopped} = useCountdown(dateString)
 
@@ -40,8 +40,7 @@ const CountdownProgressTimer = (props: CountdownTimerProps) => {
     return (
         <>
             <CountdownTimer
-                startDate={startDate}
-                endDate={endDate}
+                // endDate={endDate}
                 isActive={isActive}
                 stopped={timerStopped}
                 days={timer.days}
@@ -51,7 +50,6 @@ const CountdownProgressTimer = (props: CountdownTimerProps) => {
             <ProgressBar
                 startDate={startDate}
                 endDate={endDate}
-                initDays={endDate.day}
                 days={timer.days}
                 hours={timer.hours}
                 minutes={timer.minutes}

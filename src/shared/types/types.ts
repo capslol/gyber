@@ -12,6 +12,6 @@ export interface Time {
     year: number;
     month: NumericRange<1, 12>;
     day: NumericRange<0, 31>;
-    hour?: NumericRange<0, 23>
-    minutes?: NumericRange<0, 59>;
+    hour: NumericRange<0, 23>
+    minutes: NumericRange<0, 59>;
 }
