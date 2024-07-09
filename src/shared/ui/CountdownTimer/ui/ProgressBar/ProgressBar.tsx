@@ -25,15 +25,15 @@ const ProgressBar = ({ startDate, endDate, days, hours, minutes, isStopped }: Pr
             const elapsedDuration = totalDuration - remainingDuration;
 
             const startPercent = 30; // Начальный процент
-            const fastProgressEnd = 70; // Процент завершения для быстрой фазы
+            const fastProgressEnd = 90; // Процент завершения для быстрой фазы
             const fastDuration = totalDuration * 0.7; // 70% от общего времени
 
             let percentage;
             if (elapsedDuration <= fastDuration) {
-                // Фаза быстрой прогрессии (от 30% до 70%)
+                // Фаза быстрой прогрессии (от 30% до 90%)
                 percentage = startPercent + (elapsedDuration / fastDuration) * (fastProgressEnd - startPercent);
             } else {
-                // Фаза медленной прогрессии (от 70% до 100%)
+                // Фаза медленной прогрессии (от 90% до 100%)
                 const remainingFastDuration = elapsedDuration - fastDuration;
                 const slowDuration = totalDuration - fastDuration;
                 percentage = fastProgressEnd + (remainingFastDuration / slowDuration) * (100 - fastProgressEnd);
